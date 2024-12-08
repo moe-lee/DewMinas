@@ -61,11 +61,7 @@ document.addEventListener('click', function(event) {
 });
 function populateData(data) {
   // 인적사항
-
-
     document.querySelector('textarea[name="desiredPosition"]').value = data.desiredPosition || '';
-
-
 
   // 학력
   if (data.educations) {
