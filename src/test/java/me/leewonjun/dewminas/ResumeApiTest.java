@@ -167,7 +167,7 @@ public class ResumeApiTest {
                     LocalDateTime.of(2024, java.time.Month.of(11), 22, 13, 32, 0)));
             workSums.add(new WorkExpSummary("네이버", "개발팀장",
                     LocalDateTime.of(2025,java.time.Month.of(3), 1, 0 ,0 ,0),
-                    LocalDateTime.of(2025, java.time.Month.of(12), 3, 0, 0, 0), true));
+                    LocalDateTime.of(2025, java.time.Month.of(12), 3, 0, 0, 0), true, "서버개발"));
         }
 
         UpdateResumeRequest request = new UpdateResumeRequest(desiredPos, eduSums, licenseSums, awardSums, acaSums, eduExpSums, workSums);
@@ -266,7 +266,7 @@ public class ResumeApiTest {
                     LocalDateTime.of(2024, java.time.Month.of(11), 22, 13, 32, 0)));
             workSums.add(new WorkExpSummary("네이버", "개발팀장",
                     LocalDateTime.of(2025,java.time.Month.of(3), 1, 0 ,0 ,0),
-                    LocalDateTime.of(2025, java.time.Month.of(12), 3, 0, 0, 0), true));
+                    LocalDateTime.of(2025, java.time.Month.of(12), 3, 0, 0, 0), true, "서버개발"));
         }
 
         UpdateResumeRequest request = new UpdateResumeRequest(desiredPos, eduSums, licenseSums, awardSums, acaSums, eduExpSums, workSums);
@@ -281,7 +281,7 @@ public class ResumeApiTest {
         request.getWorkExps().add(new WorkExpSummary("부산은행", "전자 결제 시스템 개발팀원",
                 LocalDateTime.of(2023,java.time.Month.of(1), 1, 0, 0, 0),
                 LocalDateTime.of(2024, java.time.Month.of(2), 1, 0, 0, 0),
-                false));
+                false, "QA"));
         request.getAwards().get(0).setAwardName("대상");
         request.getAwards().get(0).setOrganizationName("서울대학교");
         request.getAwards().get(0).setCompetitionName("전국 프로그래밍 경진대회");
@@ -340,7 +340,7 @@ public class ResumeApiTest {
                     LocalDateTime.of(2024, java.time.Month.of(11), 22, 13, 32, 0)));
             workSums.add(new WorkExpSummary("네이버", "개발팀장",
                     LocalDateTime.of(2025,java.time.Month.of(3), 1, 0 ,0 ,0),
-                    LocalDateTime.of(2025, java.time.Month.of(12), 3, 0, 0, 0), true));
+                    LocalDateTime.of(2025, java.time.Month.of(12), 3, 0, 0, 0), true, "CTO"));
         }
 
         UpdateResumeRequest request = new UpdateResumeRequest(desiredPos, eduSums, licenseSums, awardSums, acaSums, eduExpSums, workSums);

@@ -7,14 +7,6 @@
     </head>
     <body>
         <div class="main-bar"><img class="logo" src="/img/logo.png"></img></div>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="../static/css/profile.css" />
-        <link rel="stylesheet" href="../static/css/styleguide.css" />
-    </head>
-    <body>
-        <div class="main-bar"><img class="logo" src="../static/../static/img/logo.png"></img></div>
         <div class="frame">
             <div class="profile-picture"></div>
             <div class="view">
@@ -51,12 +43,12 @@
                     <div class="head-text">이력서</div>
                 </div>
                 <div class="portfolio-frame">
-                    <div th:if="${resume} != null" class="portfolio-fame">
+                    <div th:if="${resume} != null" class="portfolio-fame" id="resumeBox">
                         <label  class="portfolio-text-1" name="desiredPosition" th:text="${resume.desiredPosition}"></label>
                         <label class="portfolio-text-2"  th:text="|created at : ${#temporals.format(resume.createdAt, 'yyyy-MM-dd')}|"></label>
                         <label class="portfolio-text-2" th:text="|last update : ${#temporals.format(resume.updatedAt, 'yyyy-MM-dd')}|"></label>
-                        <button class="fix-button" id="r-fix-button">수정</button>
-                        <button class="delete-button" id="r-delete-button">삭제</button>
+                        <button class="fix-button" id="resumeUpdateButton">수정</button>
+                        <button class="delete-button" id="resumeDeleteButton">삭제</button>
                     </div>
                     <button th:if="${resume} == null" class="plus-button" id="resumeAddButton" style="border:none;">
                         <img class="portfolio-button" src="/img/portfolio-plus.png" href="input.html" alt="Add Portfolio">

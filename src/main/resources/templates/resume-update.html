@@ -34,7 +34,7 @@
           <div class="background-border">
             <div class="background-border-3">
               <p class="div-3"><span class="text-wrapper-4">희망 직무</span> </p>
-              <textarea class="text_area_1" name="desiredPosition" placeholder="software enginear" th:value="desiredPosition"></textarea>
+              <input class="text_area_1" name="desiredPosition" placeholder="software enginear" th:value="${desiredPosition}"></input>
             </div>
             <div class="border">
               <div class="image-container"></div>
@@ -56,7 +56,8 @@
           </div>
   
           <div class="mainframe">
-            <div class="subframe">
+              <!-- 복사 대상이 될 투명한 항목 요소 -->
+            <div class="subframe" style="display:none;">
               <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
             
               <!-- Institution Name -->
@@ -107,7 +108,64 @@
                 <input class="e_check" type="checkbox"  name="educations[0].to_now" >
               </div>
             </div>
+
+              <!-- 서버로 부터 전달된 기존 항목 요소 -->
+              <div class="subframe" th:each="education,iterStat : ${educations}">
+
+                  <input class="text_area" th:name="|education[${iterStat.index + 1}].id|" style="display:none;" th:value="${education.id}"/>
+
+                  <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
+                  <!-- Institution Name -->
+                  <div class="e_frame">
+                      <p class="div-3"><span class="text-wrapper-4">대학교</span></p>
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].institution_name|" th:value="${education.institutionName}" required>
+                  </div>
+
+                  <!-- Department -->
+                  <div class="e_frame">
+                      <p class="div-3"><span class="text-wrapper-4">학과</span></p>
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].department|" th:value="${education.major}" required>
+                  </div>
+
+                  <!-- Degree -->
+                  <div class="e_frame">
+                      <p class="div-3"><span class="text-wrapper-4">학위</span></p>
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].degree|" th:value="${education.degree}">
+                  </div>
+
+                  <!-- GPA -->
+                  <div class="e_frame_gpa">
+                      <p class="div-3"><span class="text-wrapper-4">GPA</span></p>
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].gpa|" th:value="${education.gpa}">
+                  </div>
+
+                  <!-- Max GPA -->
+                  <div class="e_frame_gpa">
+                      <p class="div-3"><span class="text-wrapper-4">최대 GPA</span></p>
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].max_gpa|" th:value="${education.maxGpa}">
+                  </div>
+
+                  <!-- From Date -->
+                  <div class="e_frame">
+                      <p class="div-3"><span class="text-wrapper-4">시작 날짜</span></p>
+                      <input class="text_area" type="date" th:name="|education[${iterStat.index + 1}].from_Date|" th:value="${#temporals.format(education.fromDate, 'yyyy-MM-dd')}">
+                  </div>
+
+                  <!-- To Date -->
+                  <div class="e_frame">
+                      <p class="div-3"><span class="text-wrapper-4">종료 날짜</span></p>
+                      <input class="text_area" type="date" th:name="|education[${iterStat.index + 1}].to_date|" th:value="${#temporals.format(education.toDate, 'yyyy-MM-dd')}">
+                  </div>
+
+                  <!-- To Now (Current Enrollment) -->
+                  <div class="e_frame">
+                      <span class="e_checklist">현재 재학 중</span>
+                      <input th:if="${education.toNow}" class="e_check" type="checkbox"  th:name="|education[${iterStat.index + 1}].to_now|" checked>
+                      <input th:unless="${education.toNow}" class="e_check" type="checkbox"  th:name="|education[${iterStat.index + 1}].to_now|" checked>
+                  </div>
+              </div>
           </div>
+
           <button class="plusbutton" type="button" data-section="educations">
             <img class="image-6" src="/img/image-26.png" />
             <div class="text-wrapper-7">추가</div>
@@ -118,7 +176,8 @@
             <div class="heading-2">자격증</div>
           </div>
           <div class="mainframe">
-            <div class="subframe">
+              <!-- 복사 대상이 될 투명한 항목 요소 -->
+            <div class="subframe" style="display:none;">
               <div class="l_frame_1">
                   <p class="div-3"><span class="text-wrapper-4">자격증 명</span></p>
                   <input class="text_area" name="licenses[0].name" placeholder="정보처리기사">
@@ -132,7 +191,24 @@
                 <input class="text_area" name="licenses[0].issued_data" placeholder="2024/20/10" type="date">
               </div>
               <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
+                <!-- 서버로 부터 전달된 기존 항목 요소 -->
             </div>
+              <div class="subframe" th:each="license,iterStat : ${licenses}">
+                  <input th:name="|license[${iterStat.count}].id|" style="display:none" th:value="${license.id}"/>
+                  <div class="l_frame_1">
+                      <p class="div-3"><span class="text-wrapper-4">자격증 명</span></p>
+                      <input class="text_area" th:name="|license[${iterStat.count}].name|" th:value="${license.licenseName}">
+                  </div>
+                  <div class="l_frame_2">
+                      <p class="div-3"><span class="text-wrapper-4">발행처</span></p>
+                      <input class="text_area" th:name="|licenses[${iterStat.count}].organization_name|" th:value="${license.organizationName}">
+                  </div>
+                  <div class="date">
+                      <p class="div-3"><span class="text-wrapper-4">취득일</span></p>
+                      <input class="text_area" th:name="|licenses[${iterStat.count}].issued_data|" th:value="${#temporals.format(license.issuedAt, 'yyyy-MM-dd')}" type="date">
+                  </div>
+                  <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
+              </div>
           </div>
   <button class="plusbutton" data-section="licenses">
     <img class="image-6" src="/img/image-26.png" />
@@ -144,7 +220,7 @@
             <div class="heading-2">수상</div>
           </div>
           <div class="mainframe">
-            <div class="subframe">
+            <div class="subframe" style="display:none;">
               <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
               <div class="r_frame">
                 <p class="div-3"><span class="text-wrapper-4">수상명</span></p>
@@ -163,6 +239,26 @@
                 <input class="text_area" name="awards[0].award_date" placeholder="2024-04-04" type="date">
               </div>
             </div>
+              <div class="subframe" th:each="award, iterStat : ${awards}">
+                  <input th:name="|awards[${iterStat.count}}].id|" style="display:none;" th:value="award.id"/>
+                  <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
+                  <div class="r_frame">
+                      <p class="div-3"><span class="text-wrapper-4">수상명</span></p>
+                      <input class="text_area" th:name="|awards[${iterStat.count}].award_name|" th:value="${award.awardName}">
+                  </div>
+                  <div class="r_frame">
+                      <p class="div-3"><span class="text-wrapper-4">대회명</span></p>
+                      <input class="text_area" th:name="|awards[${iterStat.count}].competition_name|" th:value="${award.competitionName}">
+                  </div>
+                  <div class="r_frame">
+                      <p class="div-3"><span class="text-wrapper-4">수여기관</span></p>
+                      <input class="text_area" th:name="|awards[${iterStat.count}].organization_name|" th:value="${award.organizationName}">
+                  </div>
+                  <div class="date">
+                      <p class="div-3"><span class="text-wrapper-4">수상일</span></p>
+                      <input class="text_area" th:name="|awards[${iterStat.count}].award_date|" th:value="${#temporals.format(award.awardedDate,'yyyy-MM-dd')}" type="date">
+                  </div>
+              </div>
           </div>
           <button class="plusbutton" data-section="awards">
             <img class="image-6" src="/img/image-26.png" />
@@ -175,7 +271,7 @@
             <div class="heading-2">교육이수</div>
           </div>
           <div class="mainframe">
-            <div class="subframe">
+            <div class="subframe" style="display:none;">
               <div class="image-wrapper">
                   <img class="image-5" src="/img/image-27.png" />
               </div>
@@ -201,7 +297,34 @@
                 <input class="e_check" type="checkbox"  name="eduExps[0].to_now" value="1">
               </div>
           </div>
-          
+              <div class="subframe" th:each="eduExp, iterStat : ${educationalExp}">
+                  <input th:name="|eduExps[${iterStat.count}].id|" style="display:none;" th:value="${eduExp.id}"/>
+                  <div class="image-wrapper">
+                      <img class="image-5" src="/img/image-27.png" />
+                  </div>
+                  <div class="x_frame">
+                      <p class="div-3"><span class="text-wrapper-4">교육명</span></p>
+                      <input class="text_area" th:name="|eduExps[${iterStat.count}].education_name|" th:value="${eduExp.educationName}">
+                  </div>
+                  <div class="x_frame_1">
+                      <p class="div-3"><span class="text-wrapper-4">교육기관</span></p>
+                      <input class="text_area" th:name="|eduExps[${iterStat.count}].organization_name|" th:value="${eduExp.organizationName}">
+                  </div>
+                  <div class="x_frame_1">
+                      <p class="div-3"><span class="text-wrapper-4">시작일</span></p>
+                      <input class="text_area" th:name="|eduExps[${iterStat.count}].from_date|" th:value="${#temporals.format(eduExp.fromDate, 'yyyy-MM-dd')}" type="date">
+
+                  </div>
+                  <div class="x_frame_1">
+                      <p class="div-3"><span class="text-wrapper-4">종료일</span></p>
+                      <input class="text_area" th:name="|eduExps[${iterStat.count}].to_date|" th:value="${#temporals.format(eduExp.toDate, 'yyyy-MM-dd')}" type="date">
+                  </div>
+                  <div class="e_frame">
+                      <span class="e_checklist">현재 진행 중</span>
+                      <input th:if="${eduExp.toNow}" class="e_check" type="checkbox"  th:name="|eduExps[${eduExp.toNow}].to_now|" checked>
+                      <input th:unless="${eduExp.toNow}" class="e_check" type="checkbox"  th:name="|eduExps[${eduExp.toNow}].to_now|" checked>
+                  </div>
+              </div>
 
           </div>
           <button class="plusbutton" data-section="eduExps">
@@ -215,7 +338,7 @@
             <div class="heading-2">학술활동</div>
           </div>
           <div class="mainframe">
-            <div class="subframe">
+            <div class="subframe" style="display:none;">
               <div class="image-wrapper">
                   <img class="image-5" src="/img/image-27.png" />
               </div>
@@ -236,7 +359,28 @@
                       <input class="text_area" name="academicActivities[0].activity_date" placeholder="2024/8/1" type="month">
               </div>
           </div>
-          
+              <div class="subframe" th:each="acaAct, iterStat : ${academicActivities}">
+                  <input th:name="|academicActivities[${iterStat.count}].id|" style="display:none;" th:value="${acaAct.id}"/>
+                  <div class="image-wrapper">
+                      <img class="image-5" src="/img/image-27.png" />
+                  </div>
+                  <div class="x_frame">
+                      <p class="div-3"><span class="text-wrapper-4">제목</span></p>
+                      <input class="text_area" th:name="|academicActivities[${iterStat.count}].education_name|" th:value="${acaAct.activityName}">
+                  </div>
+                  <div class="x_frame_1">
+                      <p class="div-3"><span class="text-wrapper-4">학술기관</span></p>
+                      <input class="text_area" th:name="|academicActivities[${iterStat.count}].academic_institution|" th:value="${acaAct.institutionName}">
+                  </div>
+                  <div class="x_frame_1">
+                      <p class="div-3"><span class="text-wrapper-4">컨퍼런스 이름</span></p>
+                      <input class="text_area" th:name="|academicActivities[${iterStat.count}].conference_name|" th:value="${acaAct.conferenceName}">
+                  </div>
+                  <div class="x_frame_1">
+                      <p class="div-3"><span class="text-wrapper-4">제출일</span></p>
+                      <input class="text_area" th:name="|academicActivities[${iterStat.count}].activity_date|" th:value="${#temporals.format(acaAct.activityDate, 'yyyy-MM-dd')}" type="date">
+                  </div>
+              </div>
 
           </div>
           <button class="plusbutton" data-section="academicActivities">
@@ -252,7 +396,7 @@
         <div class="heading-2">경력</div>
     </div>
     <div class="mainframe">
-        <div class="subframe">
+        <div class="subframe" style="display:none;">
             <div class="image-wrapper">
                 <img class="image-5" src="/img/image-27.png" alt="프로필 이미지">
             </div>
@@ -287,14 +431,43 @@
                 <p class="div-3"><span class="text-wrapper-4">담당 업무</span></p>
                 <textarea class="text_area_1" name="workExps[0].responsibilities" placeholder="내가 무엇을 담당했는지 설명해주세요"></textarea>
             </div>
-
-
-
-
         </div>
-        
-        
-    </div><!-- 추가 버튼 -->
+        <div class="subframe" th:each="wExp, iterStat : ${workExp}">
+            <input th:name="|workExps[${iterStat.count}].id|" style="display:none;" th:value="${wExp.id}"/>
+            <div class="image-wrapper">
+                <img class="image-5" src="/img/image-27.png" alt="프로필 이미지">
+            </div>
+            <!-- 직급 -->
+            <div class="c_frame">
+                <p class="div-3"><span class="text-wrapper-4">직급/직책</span></p>
+                <input class="text_area" th:name="|workExps[${iterStat.count}].job_title|" th:value="${wExp.jobTitle}">
+            </div>
+
+            <!-- 회사명 -->
+            <div class="c_frame">
+                <p class="div-3"><span class="text-wrapper-4">회사명</span></p>
+                <input class="text_area" th:name="|workExps[${iterStat.count}].company_name|" th:value="${wExp.companyName}">
+            </div>
+
+            <!-- 입사 및 퇴사 년월 -->
+            <div class="c_frame_1">
+                <div class="background-border-9">
+                    <p class="div-3"><span class="text-wrapper-4">입사년월</span></p>
+                    <input class="text_area" th:name="|workExps[${iterStat.count}].from_date|" th:value="${#temporals.format(wExp.fromDate, 'yyyy-MM-dd')}" type="date">
+                </div>
+
+                <div class="background-border-10">
+                    <p class="div-3"><span class="text-wrapper-4">퇴사년월</span></p>
+                    <input class="text_area" th:name="|workExps[${iterStat.count}].to_date|" th:value="${#temporals.format(wExp.toDate, 'yyyy-MM-dd')}" type="date">
+                </div>
+            </div>
+            <div class="c_frame_2">
+                <p class="div-3"><span class="text-wrapper-4">담당 업무</span></p>
+                <input class="text_area_1" th:name="|workExps[${iterStat.count}].responsibilities|" th:value="${wExp.responsibility}"></input>
+            </div>
+        </div>
+    </div>
+    <!-- 추가 버튼 -->
         <button class="plusbutton" data-section="workExps">
             <img class="image-6" src="/img/image-26.png" alt="추가 버튼 이미지">
             <div class="text-wrapper-7">추가</div>
@@ -307,7 +480,7 @@
             <div class="heading-2">기술</div>
           </div>
           <div class="mainframe">
-              <div class="subframe">
+              <div class="subframe" style="display:none;">
                 <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
                 <div class="background-border-4">
                   <p class="div-3"><span class="text-wrapper-4">기술명</span></p>
@@ -329,10 +502,12 @@
             </div>
 
           </div>
-          <button class="plusbutton" data-section="skill">
+          <!--
+            <button class="plusbutton" data-section="skill">
             <img class="image-6" src="/img/image-26.png" />
             <div class="text-wrapper-7">추가</div>
-          </button>
+          </button> -->
+
         </div>
 
 

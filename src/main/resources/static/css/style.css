@@ -100,7 +100,7 @@
   width: 940px;
   height: auto;
   min-height: 100px;
-  display: none;
+  display: flex;
   flex-direction: row;
   background-color: #ffffff;
   border-bottom: 0.5px solid;

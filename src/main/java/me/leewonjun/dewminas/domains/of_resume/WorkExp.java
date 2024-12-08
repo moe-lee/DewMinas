@@ -27,17 +27,21 @@ public class WorkExp extends CommonDateField implements Updatable<WorkExpSummary
     @Column(name = "to_now", nullable = false)
     private Boolean toNow;
 
+    @Column(name = "responsibility")
+    private String responsibility;
+
     @ManyToOne
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 
     @Builder
-    public WorkExp(String companyName, String jobTitle, LocalDateTime fromDate, LocalDateTime toDate, Boolean toNow) {
+    public WorkExp(String companyName, String jobTitle, LocalDateTime fromDate, LocalDateTime toDate, Boolean toNow, String responsibility) {
         this.companyName = companyName;
         this.jobTitle = jobTitle;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.toNow = toNow;
+        this.responsibility = responsibility;
     }
 
     @Override
@@ -61,6 +65,10 @@ public class WorkExp extends CommonDateField implements Updatable<WorkExpSummary
             this.toNow = summary.getToNow();
             res = true;
         }
+        if(!this.responsibility.equals(summary.getResponsibility())) {
+            this.responsibility = summary.getResponsibility();
+            res = true;
+        }
         return res;
     }
 
@@ -71,7 +79,8 @@ public class WorkExp extends CommonDateField implements Updatable<WorkExpSummary
                 && this.jobTitle.equals(other.getJobTitle())
                 && this.fromDate.toLocalDate().equals(other.getFromDate().toLocalDate())
                 && this.toDate.toLocalDate().equals(other.getToDate().toLocalDate())
-                && this.toNow.equals(other.getToNow()));
+                && this.toNow.equals(other.getToNow())
+                && this.responsibility.equals(other.getResponsibility()));
     }
 
     @SuppressWarnings("rawtypes")

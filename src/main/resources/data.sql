@@ -2,7 +2,7 @@
 INSERT INTO USERS(name_kor, name_eng, phone_number, email, nickname, password) values('이원준', 'LEE WONJUN','01034422631', 'mail@gmail.com', 'moeLee', '1234');
 
 -- 테스트용 resume
--- INSERT INTO RESUMES(owner_id, desired_position, created_at, updated_at) values (1, 'Back-end engineer', NOW(), NOW());
+--INSERT INTO RESUMES(owner_id, desired_position, created_at, updated_at) values (1, 'Back-end engineer', NOW(), NOW());
 
 -- 스킬 아이콘 정보 입력
 insert  into skill_book(skill_name, img_url) values('AWS', 'static/img/icon_AWS.png');
