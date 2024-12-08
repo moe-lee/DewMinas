@@ -1,53 +1,13 @@
 // 전역에서 사용할 헬퍼 함수 및 상수
+const globalSections = ["educations", "licenses", "awards", "eduExps", "academicActivities", "workExps"];
+
 const StorageKeys = {
     hidden: (sectionName) => `section-${sectionName}-hidden`,
     activate: (sectionName) => `button-${sectionName}-activate`
   };
   
-  // 자식 요소와 플러스 버튼의 visibility 토글 함수
-  function toggleChildrenVisibility(section, isHidden) {
-    Array.from(section.children).forEach(child => child.classList.toggle('hidden', isHidden));
-    const plusButton = section.querySelector('.plusbutton');
-    if (plusButton) {
-        plusButton.classList.toggle('hidden', isHidden);
-    }
-  }
-  
-  // 섹션 상태 복원 함수
-  function restoreSectionState(button) {
-    const sectionName = button.getAttribute('data-section');
-    const section = document.querySelector(`[name="${sectionName}"]`);
-    if (!section) return;
-  
-    const isHidden = localStorage.getItem(StorageKeys.hidden(sectionName)) === 'true';
-    const isActivated = localStorage.getItem(StorageKeys.activate(sectionName)) === 'true';
-  
-    button.classList.toggle('activate', isActivated);
-    section.classList.toggle('hidden', isHidden);
-    toggleChildrenVisibility(section, isHidden);
-  }
-  
-  // 버튼 클릭 이벤트 핸들러
-  function handleToggleButtonClick(event) {
-    const button = event.target.closest('.toggle-button');
-    if (!button) return;
-  
-    const sectionName = button.getAttribute('data-section');
-    const section = document.querySelector(`[name="${sectionName}"]`);
-    if (!section) return;
-  
-    const isNowActivated = button.classList.toggle('activate');
-    localStorage.setItem(StorageKeys.activate(sectionName), isNowActivated);
-  
-    const isNowHidden = section.classList.toggle('hidden');
-    toggleChildrenVisibility(section, isNowHidden);
-    localStorage.setItem(StorageKeys.hidden(sectionName), isNowHidden);
-  }
-  
-  
-  
   ///////////////////////////////////////////////plusbutton
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize sections based on saved field counts
     document.querySelectorAll('.plusbutton').forEach(button => {
         const section = button.getAttribute('data-section');
@@ -65,25 +25,25 @@ const StorageKeys = {
         
         } );
     });
-  });
+});
   
-  // Helper to get and set field count in localStorage
-  function getFieldCount(section) {
+// Helper to get and set field count in localStorage
+function getFieldCount(section) {
     return parseInt(localStorage.getItem(`fieldCount-${section}`)) || 0;
-  }
+}
   
-  function setFieldCount(section, count) {
+function setFieldCount(section, count) {
     localStorage.setItem(`fieldCount-${section}`, count);
-  }
+}
   
-  // Handle adding a new field set when the button is clicked
-  function handleAddButtonClick(section) {
-    addFieldSet(section);
+// Handle adding a new field set when the button is clicked
+function handleAddButtonClick(section) {
+  addFieldSet(section);
   
-    // Update field count in localStorage
-    const currentCount = getFieldCount(section);
-    setFieldCount(section, currentCount + 1);
-  }
+  // Update field count in localStorage
+  const currentCount = getFieldCount(section);
+  setFieldCount(section, currentCount + 1);
+}
   
   // Retrieve template and container elements for a section
   function getSectionElements(section) {
@@ -139,86 +99,6 @@ const StorageKeys = {
     }
   });
   
-  document.addEventListener('DOMContentLoaded', function () {
-    const previewButton = document.querySelector('#preview'); // 미리보기 버튼
-  
-    // 미리보기 버튼 클릭 이벤트
-    previewButton.addEventListener('click', function () {
-      const allData = {
-        educations: [],
-        awards: [],
-        eduExps: [],
-        academicActivities: [],
-        workExps: [],
-        licenses: [],
-        desiredPosition: "" // desiredPosition 추가
-      };
-  
-      // 모든 입력 값 수집 (hidden 클래스 제외)
-      document.querySelectorAll('.text_area, .text_area_1, .select, .check, .e_check, .image').forEach(input => {
-        if (!input.closest('.hidden')) { // hidden 클래스에 포함되지 않은 요소만 처리
-          const name = input.getAttribute('name');
-          if (!name) return; // name 속성이 없는 경우 무시
-  
-          console.log('Processing input:', name); // 디버깅용
-  
-          // desiredPosition 예외 처리
-          if (name === "desiredPosition") {
-            allData.desiredPosition = input.value.trim(); // desiredPosition은 배열이 아닌 단일 값으로 처리
-            return; // 다른 처리 하지 않도록 early return
-          }
-  
-          const matches = name.match(/^(\w+)\[(\d+)]\.(\w+)$/); // 정규식으로 파싱
-          if (!matches) {
-            console.warn(`Invalid name format: ${name}`);
-            return;
-          }
-  
-          const [, listName, index, field] = matches; // 정규식 그룹 매칭 결과
-          const listIndex = parseInt(index, 10);
-  
-          if (!allData[listName]) {
-            console.warn(`Undefined list name: ${listName}`);
-            return;
-          }
-  
-          // 배열 초기화
-          if (!allData[listName][listIndex]) {
-            allData[listName][listIndex] = {};
-          }
-  
-          // 값을 추가하기 전에 유효한 값인지 체크
-          if (input.type === 'checkbox') {
-            // checkbox일 경우 체크된 경우에만 값을 추가
-            if (input.checked) {
-              allData[listName][listIndex][field] = "1";
-            }
-          } else if (input.value.trim() !== "") {
-            // checkbox가 아닌 경우 빈 값이 아닌 것만 추가
-            allData[listName][listIndex][field] = input.value.trim();
-          }
-        }
-      });
-  
-      // 빈 객체를 가진 배열 항목을 제거하는 코드 추가
-      Object.keys(allData).forEach(key => {
-        if (key !== "desiredPosition") {  // desiredPosition은 배열이 아니므로 제외
-          allData[key] = allData[key].filter(item => {
-            return Object.keys(item).length > 0; // 객체가 비어 있지 않은 경우만 포함
-          });
-        }
-      });
-  
-      // 데이터를 JSON 문자열로 변환하여 localStorage에 저장
-      localStorage.setItem('formData', JSON.stringify(allData));
-      window.removeEventListener("beforeunload", beforeUnloadHandler);
-      console.log('Final JSON Data:', allData); // 최종 데이터 디버깅용 출력
-    });
-  });
-  
-  
-  
-  
   // beforeunload 이벤트 핸들러
   function beforeUnloadHandler(event) {
     // 페이지가 닫히거나 다른 URL로 이동하기 직전에 실행될 코드
@@ -227,6 +107,7 @@ const StorageKeys = {
     event.returnValue = ""; // 경고 메시지 표시 (일부 브라우저만 지원)
     localStorage.clear(); // 페이지 닫힐 때 로컬 스토리지 초기화
   }
+
   document.addEventListener('click', function(event) {
     const wrapper = event.target.closest('.image-wrapper');
     const container = wrapper.closest('.maincontainer');
@@ -239,3 +120,76 @@ const StorageKeys = {
       wrapper.parentElement.remove();
     }
   });
+
+
+// 입력 데이터를 모아 요청용 객체를 만들어주는 함수
+function parseResumeData() {
+    const allData = {
+            educations: [],
+            awards: [],
+            eduExps: [],
+            academicActivities: [],
+            workExps: [],
+            licenses: [],
+            desiredPosition: "" // desiredPosition 추가
+          };
+    let notSatisfiedSections = new Set();
+
+    allData.desiredPosition = document.getElementById("desiredPosition_input").value;
+    if(allData.desiredPosition === "") {
+        notSatisfiedSections.add("desiredPosition");
+    }
+
+    for(let section of globalSections) {
+        let sectionMainContainer = section + '_main_container';
+        let subframes = document.querySelectorAll(`#${sectionMainContainer} .subframe`);
+        for(let i = 1; i < subframes.length; i++) {
+            let inputs = subframes[i].querySelectorAll("input");
+            let newObject = {};
+            let complete = true;
+            inputs.forEach(input => {
+                let tokens = input.getAttribute("name").split("-");
+                let value = input.value;
+
+                if(tokens[1] === "toNow") {
+                    value = (value === "on") ? true : false;
+                } else if(tokens[1].indexOf('Date') >= 0) {
+                    value += 'T00:00:00.0000000';
+                } else if(value){
+                    value = (!isNaN(Number(value))) ? Number(value) : value;
+                }
+                newObject[tokens[1]] = value;
+            });
+            for(let key in newObject) { // 채워지지 않은 항목이 있을 경우 추가하지 않는다.
+                if(key === "id") continue;
+                if(newObject[key] === "") complete = false;
+            }
+            if(complete) allData[section].push(newObject);
+            else notSatisfiedSections.add(section);
+        }
+    }
+    if(notSatisfiedSections.size == 0) return JSON.stringify(allData);
+    else {
+        alert([...notSatisfiedSections].join("\n"));
+        return "";
+    }
+}
+
+let saveButton = document.getElementById("save");
+let previewButton = document.getElementById("preview");
+
+saveButton.addEventListener('click', (ev) => {
+    let parsedData = parseResumeData();
+    if(parsedData === "") return;
+    let resumeId = document.getElementById("resumeId").value;
+    fetch(`/api/resume/${resumeId}`, {
+        method : 'PUT',
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        body : parsedData
+    }).then(()=> {
+        let email = (new URL(window.location.href)).searchParams.get('email');
+        location = `/profile?email=${email}`;
+    });
+});

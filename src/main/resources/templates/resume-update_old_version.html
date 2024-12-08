@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <input id="resumeId" style="display:none;" th:value="${resumeId}"/>
   <div  class="potopolio-input-page">
     <div class="background">
       <div class="container-13">
@@ -35,7 +34,7 @@
           <div class="background-border">
             <div class="background-border-3">
               <p class="div-3"><span class="text-wrapper-4">희망 직무</span> </p>
-              <input class="text_area_1" id="desiredPosition_input" name="desiredPosition" placeholder="software enginear" th:value="${desiredPosition}"></input>
+              <input class="text_area_1" name="desiredPosition" placeholder="software enginear" th:value="${desiredPosition}"></input>
             </div>
             <div class="border">
               <div class="image-container"></div>
@@ -51,7 +50,7 @@
             <div class="container-9">
               <div class="label-12">
                 <div class="text-wrapper-18">고등학교 미만 졸업</div>
-                <input class="check" type="checkbox"  name="educations-type">
+                <input class="check" type="checkbox"  name="educations[0].type">
               </div>
             </div>
           </div>
@@ -64,105 +63,105 @@
               <!-- Institution Name -->
               <div class="e_frame">
                 <p class="div-3"><span class="text-wrapper-4">대학교</span></p>
-                <input class="text_area" name="educations-institutionName" placeholder="동의대학교" required>
+                <input class="text_area" name="educations[0].institution_name" placeholder="동의대학교" required>
               </div>
             
               <!-- Department -->
               <div class="e_frame">
                 <p class="div-3"><span class="text-wrapper-4">학과</span></p>
-                <input class="text_area" name="educations-major" placeholder="컴퓨터공학과" required>
+                <input class="text_area" name="educations[0].department" placeholder="컴퓨터공학과" required>
               </div>
             
               <!-- Degree -->
               <div class="e_frame">
                 <p class="div-3"><span class="text-wrapper-4">학위</span></p>
-                <input class="text_area" name="educations-degree" placeholder="학사">
+                <input class="text_area" name="educations[0].degree" placeholder="학사">
               </div>
             
               <!-- GPA -->
               <div class="e_frame_gpa">
                 <p class="div-3"><span class="text-wrapper-4">GPA</span></p>
-                <input class="text_area" name="educations-gpa" placeholder="4.49">
+                <input class="text_area" name="educations[0].gpa" placeholder="4.49">
               </div>
             
               <!-- Max GPA -->
               <div class="e_frame_gpa">
                 <p class="div-3"><span class="text-wrapper-4">최대 GPA</span></p>
-                <input class="text_area" name="educations-maxGpa" placeholder="4.5">
+                <input class="text_area" name="educations[0].max_gpa" placeholder="4.5">
               </div>
             
               <!-- From Date -->
               <div class="e_frame">
                 <p class="div-3"><span class="text-wrapper-4">시작 날짜</span></p>
-                <input class="text_area" type="date" name="educations-fromDate" required>
+                <input class="text_area" type="date" name="educations[0].from_Date" required>
               </div>
             
               <!-- To Date -->
               <div class="e_frame">
                 <p class="div-3"><span class="text-wrapper-4">종료 날짜</span></p>
-                <input class="text_area" type="date" name="educations-toDate" required>
+                <input class="text_area" type="date" name="educations[0].to_date" required>
               </div>
             
               <!-- To Now (Current Enrollment) -->
               <div class="e_frame">
                 <span class="e_checklist">현재 재학 중</span>
-                <input class="e_check" type="checkbox"  name="educations-toNow" >
+                <input class="e_check" type="checkbox"  name="educations[0].to_now" >
               </div>
             </div>
 
               <!-- 서버로 부터 전달된 기존 항목 요소 -->
               <div class="subframe" th:each="education,iterStat : ${educations}">
 
-                  <input class="text_area" th:name="|educations-id|" style="display:none;" th:value="${education.id}"/>
+                  <input class="text_area" th:name="|education[${iterStat.index + 1}].id|" style="display:none;" th:value="${education.id}"/>
 
                   <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
                   <!-- Institution Name -->
                   <div class="e_frame">
                       <p class="div-3"><span class="text-wrapper-4">대학교</span></p>
-                      <input class="text_area" th:name="|educations-institutionName|" th:value="${education.institutionName}" required>
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].institution_name|" th:value="${education.institutionName}" required>
                   </div>
 
                   <!-- Department -->
                   <div class="e_frame">
                       <p class="div-3"><span class="text-wrapper-4">학과</span></p>
-                      <input class="text_area" th:name="|educations-major|" th:value="${education.major}" required>
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].department|" th:value="${education.major}" required>
                   </div>
 
                   <!-- Degree -->
                   <div class="e_frame">
                       <p class="div-3"><span class="text-wrapper-4">학위</span></p>
-                      <input class="text_area" th:name="|educations-degree|" th:value="${education.degree}">
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].degree|" th:value="${education.degree}">
                   </div>
 
                   <!-- GPA -->
                   <div class="e_frame_gpa">
                       <p class="div-3"><span class="text-wrapper-4">GPA</span></p>
-                      <input class="text_area" th:name="|educations-gpa|" th:value="${education.gpa}">
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].gpa|" th:value="${education.gpa}">
                   </div>
 
                   <!-- Max GPA -->
                   <div class="e_frame_gpa">
                       <p class="div-3"><span class="text-wrapper-4">최대 GPA</span></p>
-                      <input class="text_area" th:name="|educations-maxGpa|" th:value="${education.maxGpa}">
+                      <input class="text_area" th:name="|education[${iterStat.index + 1}].max_gpa|" th:value="${education.maxGpa}">
                   </div>
 
                   <!-- From Date -->
                   <div class="e_frame">
                       <p class="div-3"><span class="text-wrapper-4">시작 날짜</span></p>
-                      <input class="text_area" type="date" th:name="|educations-fromDate|" th:value="${#temporals.format(education.fromDate, 'yyyy-MM-dd')}">
+                      <input class="text_area" type="date" th:name="|education[${iterStat.index + 1}].from_Date|" th:value="${#temporals.format(education.fromDate, 'yyyy-MM-dd')}">
                   </div>
 
                   <!-- To Date -->
                   <div class="e_frame">
                       <p class="div-3"><span class="text-wrapper-4">종료 날짜</span></p>
-                      <input class="text_area" type="date" th:name="|educations-toDate|" th:value="${#temporals.format(education.toDate, 'yyyy-MM-dd')}">
+                      <input class="text_area" type="date" th:name="|education[${iterStat.index + 1}].to_date|" th:value="${#temporals.format(education.toDate, 'yyyy-MM-dd')}">
                   </div>
 
                   <!-- To Now (Current Enrollment) -->
                   <div class="e_frame">
                       <span class="e_checklist">현재 재학 중</span>
-                      <input th:if="${education.toNow}" class="e_check" type="checkbox"  th:name="|educations-toNow|" checked>
-                      <input th:unless="${education.toNow}" class="e_check" type="checkbox"  th:name="|educations-toNow|" checked>
+                      <input th:if="${education.toNow}" class="e_check" type="checkbox"  th:name="|education[${iterStat.index + 1}].to_now|" checked>
+                      <input th:unless="${education.toNow}" class="e_check" type="checkbox"  th:name="|education[${iterStat.index + 1}].to_now|" checked>
                   </div>
               </div>
           </div>
@@ -181,42 +180,40 @@
             <div class="subframe" style="display:none;">
               <div class="l_frame_1">
                   <p class="div-3"><span class="text-wrapper-4">자격증 명</span></p>
-                  <input class="text_area" name="licenses-name" placeholder="정보처리기사">
+                  <input class="text_area" name="licenses[0].name" placeholder="정보처리기사">
               </div>
               <div class="l_frame_2">
                 <p class="div-3"><span class="text-wrapper-4">발행처</span></p>
-                  <input class="text_area" name="licenses-organizationName" placeholder="국립국어원">
+                  <input class="text_area" name="licenses[0].organization_name" placeholder="국립국어원">
               </div>
               <div class="date">
                 <p class="div-3"><span class="text-wrapper-4">취득일</span></p>
-                <input class="text_area" name="licenses-issuedData" placeholder="2024/20/10" type="date">
+                <input class="text_area" name="licenses[0].issued_data" placeholder="2024/20/10" type="date">
               </div>
               <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
                 <!-- 서버로 부터 전달된 기존 항목 요소 -->
             </div>
               <div class="subframe" th:each="license,iterStat : ${licenses}">
-                  <input th:name="|licenses-id|" style="display:none" th:value="${license.id}"/>
+                  <input th:name="|license[${iterStat.count}].id|" style="display:none" th:value="${license.id}"/>
                   <div class="l_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">자격증 명</span></p>
-                      <input class="text_area" th:name="|licenses-licenseName|" th:value="${license.licenseName}">
+                      <input class="text_area" th:name="|license[${iterStat.count}].name|" th:value="${license.licenseName}">
                   </div>
                   <div class="l_frame_2">
                       <p class="div-3"><span class="text-wrapper-4">발행처</span></p>
-                      <input class="text_area" th:name="|licenses-organizationName|" th:value="${license.organizationName}">
+                      <input class="text_area" th:name="|licenses[${iterStat.count}].organization_name|" th:value="${license.organizationName}">
                   </div>
                   <div class="date">
                       <p class="div-3"><span class="text-wrapper-4">취득일</span></p>
-                      <input class="text_area" th:name="|licenses-issuedData|" th:value="${#temporals.format(license.issuedAt, 'yyyy-MM-dd')}" type="date">
+                      <input class="text_area" th:name="|licenses[${iterStat.count}].issued_data|" th:value="${#temporals.format(license.issuedAt, 'yyyy-MM-dd')}" type="date">
                   </div>
                   <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
               </div>
           </div>
-
   <button class="plusbutton" data-section="licenses">
     <img class="image-6" src="/img/image-26.png" />
     <div class="text-wrapper-7">추가</div>
   </button>
-
         </div>
         <div class="maincontainer" name="awards" id="awards_main_container">
           <div class="heading">
@@ -227,39 +224,39 @@
               <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
               <div class="r_frame">
                 <p class="div-3"><span class="text-wrapper-4">수상명</span></p>
-                <input class="text_area" name="awards-awardName" placeholder="지역상">
+                <input class="text_area" name="awards[0].award_name" placeholder="지역상">
               </div>
               <div class="r_frame">
                 <p class="div-3"><span class="text-wrapper-4">대회명</span></p>
-                <input class="text_area" name="awards-competitionName" placeholder="전국 컴퓨터 경진대회">
+                <input class="text_area" name="awards[0].competition_name" placeholder="전국 컴퓨터 경진대회">
               </div>
               <div class="r_frame">
                 <p class="div-3"><span class="text-wrapper-4">수여기관</span></p>
-                <input class="text_area" name="awards-organizationName" placeholder="동의대학교">
+                <input class="text_area" name="awards[0].organization_name" placeholder="동의대학교">
               </div>
               <div class="date">
                 <p class="div-3"><span class="text-wrapper-4">수상일</span></p>
-                <input class="text_area" name="awards-awardDate" placeholder="2024-04-04" type="date">
+                <input class="text_area" name="awards[0].award_date" placeholder="2024-04-04" type="date">
               </div>
             </div>
               <div class="subframe" th:each="award, iterStat : ${awards}">
-                  <input th:name="|awards-id|" style="display:none;" th:value="award.id"/>
+                  <input th:name="|awards[${iterStat.count}}].id|" style="display:none;" th:value="award.id"/>
                   <div class="image-wrapper"><img class="image-5" src="/img/image-27.png" /></div>
                   <div class="r_frame">
                       <p class="div-3"><span class="text-wrapper-4">수상명</span></p>
-                      <input class="text_area" th:name="|awards-awardName|" th:value="${award.awardName}">
+                      <input class="text_area" th:name="|awards[${iterStat.count}].award_name|" th:value="${award.awardName}">
                   </div>
                   <div class="r_frame">
                       <p class="div-3"><span class="text-wrapper-4">대회명</span></p>
-                      <input class="text_area" th:name="|awards-competitionName|" th:value="${award.competitionName}">
+                      <input class="text_area" th:name="|awards[${iterStat.count}].competition_name|" th:value="${award.competitionName}">
                   </div>
                   <div class="r_frame">
                       <p class="div-3"><span class="text-wrapper-4">수여기관</span></p>
-                      <input class="text_area" th:name="|awards-organizationName|" th:value="${award.organizationName}">
+                      <input class="text_area" th:name="|awards[${iterStat.count}].organization_name|" th:value="${award.organizationName}">
                   </div>
                   <div class="date">
                       <p class="div-3"><span class="text-wrapper-4">수상일</span></p>
-                      <input class="text_area" th:name="|awards-awardDate|" th:value="${#temporals.format(award.awardedDate,'yyyy-MM-dd')}" type="date">
+                      <input class="text_area" th:name="|awards[${iterStat.count}].award_date|" th:value="${#temporals.format(award.awardedDate,'yyyy-MM-dd')}" type="date">
                   </div>
               </div>
           </div>
@@ -269,7 +266,7 @@
           </button>
         </div>
         
-        <div class="maincontainer" name="eduExps" id="eduExps_main_container">
+        <div class="maincontainer" name="eduExps" id="eduExp_main_container">
           <div class="heading">
             <div class="heading-2">교육이수</div>
           </div>
@@ -280,52 +277,52 @@
               </div>
               <div class="x_frame">
                   <p class="div-3"><span class="text-wrapper-4">교육명</span></p>
-                  <input class="text_area" name="eduExps-educationName" placeholder="지역 발전 사회화 교육">
+                  <input class="text_area" name="eduExps[0].education_name" placeholder="지역 발전 사회화 교육">
               </div>
               <div class="x_frame_1">
                   <p class="div-3"><span class="text-wrapper-4">교육기관</span></p>
-                  <input class="text_area" name="eduExps-organizationName" placeholder="부산시">
+                  <input class="text_area" name="eduExps[0].organization_name" placeholder="부산시">
               </div>
               <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">시작년월</span></p>
-                      <input class="text_area" name="eduExps-fromDate" placeholder="2024/6" type="month">
+                      <input class="text_area" name="eduExps[0].from_date" placeholder="2024/6" type="month">
                   
               </div>
               <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">종료년월</span></p>
-                      <input class="text_area" name="eduExps-toDate" placeholder="2024/8" type="month">
+                      <input class="text_area" name="eduExps[0].to_date" placeholder="2024/8" type="month">
               </div>
               <div class="e_frame">
                 <span class="e_checklist">현재 진행 중</span>
-                <input class="e_check" type="checkbox"  name="eduExps-toNow" value="1">
+                <input class="e_check" type="checkbox"  name="eduExps[0].to_now" value="1">
               </div>
           </div>
               <div class="subframe" th:each="eduExp, iterStat : ${educationalExp}">
-                  <input th:name="|eduExps-id|" style="display:none;" th:value="${eduExp.id}"/>
+                  <input th:name="|eduExps[${iterStat.count}].id|" style="display:none;" th:value="${eduExp.id}"/>
                   <div class="image-wrapper">
                       <img class="image-5" src="/img/image-27.png" />
                   </div>
                   <div class="x_frame">
                       <p class="div-3"><span class="text-wrapper-4">교육명</span></p>
-                      <input class="text_area" th:name="|eduExps-educationName|" th:value="${eduExp.educationName}">
+                      <input class="text_area" th:name="|eduExps[${iterStat.count}].education_name|" th:value="${eduExp.educationName}">
                   </div>
                   <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">교육기관</span></p>
-                      <input class="text_area" th:name="|eduExps-organizationName|" th:value="${eduExp.organizationName}">
+                      <input class="text_area" th:name="|eduExps[${iterStat.count}].organization_name|" th:value="${eduExp.organizationName}">
                   </div>
                   <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">시작일</span></p>
-                      <input class="text_area" th:name="|eduExps-fromDate|" th:value="${#temporals.format(eduExp.fromDate, 'yyyy-MM-dd')}" type="date">
+                      <input class="text_area" th:name="|eduExps[${iterStat.count}].from_date|" th:value="${#temporals.format(eduExp.fromDate, 'yyyy-MM-dd')}" type="date">
 
                   </div>
                   <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">종료일</span></p>
-                      <input class="text_area" th:name="|eduExps-toDate|" th:value="${#temporals.format(eduExp.toDate, 'yyyy-MM-dd')}" type="date">
+                      <input class="text_area" th:name="|eduExps[${iterStat.count}].to_date|" th:value="${#temporals.format(eduExp.toDate, 'yyyy-MM-dd')}" type="date">
                   </div>
                   <div class="e_frame">
                       <span class="e_checklist">현재 진행 중</span>
-                      <input th:if="${eduExp.toNow}" class="e_check" type="checkbox"  th:name="|eduExps-toNow|" checked>
-                      <input th:unless="${eduExp.toNow}" class="e_check" type="checkbox"  th:name="|eduExps-toNow|" checked>
+                      <input th:if="${eduExp.toNow}" class="e_check" type="checkbox"  th:name="|eduExps[${eduExp.toNow}].to_now|" checked>
+                      <input th:unless="${eduExp.toNow}" class="e_check" type="checkbox"  th:name="|eduExps[${eduExp.toNow}].to_now|" checked>
                   </div>
               </div>
 
@@ -347,41 +344,41 @@
               </div>
               <div class="x_frame">
                   <p class="div-3"><span class="text-wrapper-4">제목</span></p>
-                  <input class="text_area" name="academicActivities-activityName" placeholder="지역 발전 사회화 논문">
+                  <input class="text_area" name="academicActivities[0].education_name" placeholder="지역 발전 사회화 논문">
               </div>
               <div class="x_frame_1">
                   <p class="div-3"><span class="text-wrapper-4">학술기관</span></p>
-                  <input class="text_area" name="academicActivities-institutionName" placeholder="부산시">
+                  <input class="text_area" name="academicActivities[0].academic_institution" placeholder="부산시">
               </div>
               <div class="x_frame_1">
                 <p class="div-3"><span class="text-wrapper-4">컨퍼런스 이름</span></p>
-                <input class="text_area" name="academicActivities-conferenceName" placeholder="컨퍼런스">
+                <input class="text_area" name="academicActivities[0].conferenace_name" placeholder="컨퍼런스">
             </div>
               <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">제출일</span></p>
-                      <input class="text_area" name="academicActivities-activityDate" placeholder="2024/8/1" type="month">
+                      <input class="text_area" name="academicActivities[0].activity_date" placeholder="2024/8/1" type="month">
               </div>
           </div>
               <div class="subframe" th:each="acaAct, iterStat : ${academicActivities}">
-                  <input th:name="|academicActivities-id|" style="display:none;" th:value="${acaAct.id}"/>
+                  <input th:name="|academicActivities[${iterStat.count}].id|" style="display:none;" th:value="${acaAct.id}"/>
                   <div class="image-wrapper">
                       <img class="image-5" src="/img/image-27.png" />
                   </div>
                   <div class="x_frame">
                       <p class="div-3"><span class="text-wrapper-4">제목</span></p>
-                      <input class="text_area" th:name="|academicActivities-activityName|" th:value="${acaAct.activityName}">
+                      <input class="text_area" th:name="|academicActivities[${iterStat.count}].education_name|" th:value="${acaAct.activityName}">
                   </div>
                   <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">학술기관</span></p>
-                      <input class="text_area" th:name="|academicActivities-institutionName|" th:value="${acaAct.institutionName}">
+                      <input class="text_area" th:name="|academicActivities[${iterStat.count}].academic_institution|" th:value="${acaAct.institutionName}">
                   </div>
                   <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">컨퍼런스 이름</span></p>
-                      <input class="text_area" th:name="|academicActivities-conferenceName|" th:value="${acaAct.conferenceName}">
+                      <input class="text_area" th:name="|academicActivities[${iterStat.count}].conference_name|" th:value="${acaAct.conferenceName}">
                   </div>
                   <div class="x_frame_1">
                       <p class="div-3"><span class="text-wrapper-4">제출일</span></p>
-                      <input class="text_area" th:name="|academicActivities-activityDate|" th:value="${#temporals.format(acaAct.activityDate, 'yyyy-MM-dd')}" type="date">
+                      <input class="text_area" th:name="|academicActivities[${iterStat.count}].activity_date|" th:value="${#temporals.format(acaAct.activityDate, 'yyyy-MM-dd')}" type="date">
                   </div>
               </div>
 
@@ -406,64 +403,64 @@
             <!-- 직급 -->
             <div class="c_frame">
                 <p class="div-3"><span class="text-wrapper-4">직급/직책</span></p>
-                <input class="text_area" name="workExps-jobTitle" placeholder="과장 4호봉/영업본부장">
+                <input class="text_area" name="workExps[0].job_title" placeholder="과장 4호봉/영업본부장">
             </div>
             
             <!-- 회사명 -->
             <div class="c_frame">
                 <p class="div-3"><span class="text-wrapper-4">회사명</span></p>
-                <input class="text_area" name="workExps-companyName" placeholder="동의제약">
+                <input class="text_area" name="workExps[0].company_name" placeholder="동의제약">
             </div>
             
             <!-- 입사 및 퇴사 년월 -->
             <div class="c_frame_1">
                 <div class="background-border-9">
                     <p class="div-3"><span class="text-wrapper-4">입사년월</span></p>
-                    <input class="text_area" name="workExps-fromDate" placeholder="2024" type="month">
+                    <input class="text_area" name="workExps[0].from_date" placeholder="2024" type="month">
                 </div>
                 
                 <div class="background-border-10">
                     <p class="div-3"><span class="text-wrapper-4">퇴사년월</span></p>
-                    <input class="text_area" name="workExps-toDate" placeholder="2044" type="month">
+                    <input class="text_area" name="workExps[0].to_date" placeholder="2044" type="month">
                 </div>
             </div>
             <div class="c_frame_2">
                 <p class="div-3"><span class="text-wrapper-4">담당 업무</span></p>
-                <textarea class="text_area_1" name="workExps-responsibility" placeholder="내가 무엇을 담당했는지 설명해주세요"></textarea>
+                <textarea class="text_area_1" name="workExps[0].responsibilities" placeholder="내가 무엇을 담당했는지 설명해주세요"></textarea>
             </div>
         </div>
         <div class="subframe" th:each="wExp, iterStat : ${workExp}">
-            <input th:name="|workExps-id|" style="display:none;" th:value="${wExp.id}"/>
+            <input th:name="|workExps[${iterStat.count}].id|" style="display:none;" th:value="${wExp.id}"/>
             <div class="image-wrapper">
                 <img class="image-5" src="/img/image-27.png" alt="프로필 이미지">
             </div>
             <!-- 직급 -->
             <div class="c_frame">
                 <p class="div-3"><span class="text-wrapper-4">직급/직책</span></p>
-                <input class="text_area" th:name="|workExps-jobTitle|" th:value="${wExp.jobTitle}">
+                <input class="text_area" th:name="|workExps[${iterStat.count}].job_title|" th:value="${wExp.jobTitle}">
             </div>
 
             <!-- 회사명 -->
             <div class="c_frame">
                 <p class="div-3"><span class="text-wrapper-4">회사명</span></p>
-                <input class="text_area" th:name="|workExps-companyName|" th:value="${wExp.companyName}">
+                <input class="text_area" th:name="|workExps[${iterStat.count}].company_name|" th:value="${wExp.companyName}">
             </div>
 
             <!-- 입사 및 퇴사 년월 -->
             <div class="c_frame_1">
                 <div class="background-border-9">
                     <p class="div-3"><span class="text-wrapper-4">입사년월</span></p>
-                    <input class="text_area" th:name="|workExps-fromDate|" th:value="${#temporals.format(wExp.fromDate, 'yyyy-MM-dd')}" type="date">
+                    <input class="text_area" th:name="|workExps[${iterStat.count}].from_date|" th:value="${#temporals.format(wExp.fromDate, 'yyyy-MM-dd')}" type="date">
                 </div>
 
                 <div class="background-border-10">
                     <p class="div-3"><span class="text-wrapper-4">퇴사년월</span></p>
-                    <input class="text_area" th:name="|workExps-toDate|" th:value="${#temporals.format(wExp.toDate, 'yyyy-MM-dd')}" type="date">
+                    <input class="text_area" th:name="|workExps[${iterStat.count}].to_date|" th:value="${#temporals.format(wExp.toDate, 'yyyy-MM-dd')}" type="date">
                 </div>
             </div>
             <div class="c_frame_2">
                 <p class="div-3"><span class="text-wrapper-4">담당 업무</span></p>
-                <input class="text_area_1" th:name="|workExps-responsibility|" th:value="${wExp.responsibility}"></input>
+                <input class="text_area_1" th:name="|workExps[${iterStat.count}].responsibilities|" th:value="${wExp.responsibility}"></input>
             </div>
         </div>
     </div>
@@ -502,14 +499,110 @@
             </div>
 
           </div>
+          <!--
+            <button class="plusbutton" data-section="skill">
+            <img class="image-6" src="/img/image-26.png" />
+            <div class="text-wrapper-7">추가</div>
+          </button> -->
+
         </div>
 
 
         
       </div>
       <div class="container">
-        <button class="background-border" id="preview">미리보기</button>
-          <button class="background-border" id="save">저장하기</button>
+        <div class="background-border-2">
+          <div class="container_heading">이력서 항목</div>
+          <div class="list">
+            <div class="item-link">
+              <div class="text-wrapper-2">인적사항</div>
+              <img class="img" src="/img/image.png" />
+            </div>
+
+            <!-- 토글 버튼 수정: class로 변경 -->
+            <button class="div-2 toggle-button" data-section="educations">
+              <div class="link">
+                <div class="text-wrapper-3">학력</div>
+                <img class="image" src="/img/image-4.png" />
+              </div>
+              <div class="rectangle-wrapper">
+                <div class="rectangle"></div>
+                <div class="rectangle1"></div>
+              </div>
+            </button>
+            
+            <button class="div-2 toggle-button" data-section="licenses">
+              <div class="link">
+                <div class="text-wrapper-3">자격증</div>
+                <img class="image" src="/img/image-3.png" />
+              </div>
+              <div class="rectangle-wrapper">
+                <div class="rectangle"></div>
+                <div class="rectangle1"></div>
+              </div>
+            </button>
+            
+            <button class="div-2 toggle-button" data-section="awards">
+              <div class="link">
+                <img class="image" src="/img/trophy.png" />
+                <div class="text-wrapper-3">수상</div>
+              </div>
+              <div class="rectangle-wrapper">
+                <div class="rectangle"></div>
+                <div class="rectangle1"></div>
+              </div>
+            </button>
+            
+            <button class="div-2 toggle-button" data-section="eduExps">
+              <div class="link">
+                <div class="text-wrapper-3">교육이수</div>
+                <img class="image" src="/img/image-2.png" />
+              </div>
+              <div class="rectangle-wrapper">
+                <div class="rectangle"></div>
+                <div class="rectangle1"></div>
+              </div>
+            </button>
+
+            <button class="div-2 toggle-button" data-section="academicActivities">
+              <div class="link">
+                <div class="text-wrapper-3">논문</div>
+                <img class="image" src="/img/image-3.png" />
+              </div>
+              <div class="rectangle-wrapper">
+                <div class="rectangle"></div>
+                <div class="rectangle1"></div>
+              </div>
+            </button>
+            
+            <button class="div-2 toggle-button" data-section="workExps">
+              <div class="link-2">
+                <div class="text-wrapper-3">경력</div>
+                <img class="image" src="/img/image-3.png" />
+              </div>
+              <div class="rectangle-wrapper">
+                <div class="rectangle"></div>
+                <div class="rectangle1"></div>
+              </div>
+            </button>
+            
+            <button class="div-2 toggle-button" data-section="skill">
+              <div class="link-2">
+                <img class="image" src="/img/image.png" />
+                <div class="text-wrapper-3">기술</div>
+              </div>
+              <div class="rectangle-wrapper">
+                <div class="rectangle"></div>
+                <div class="rectangle1"></div>
+              </div>
+            </button>
+            
+          </div>
+        </div>
+        <button class="background-border">
+          <a class="button" id="preview" href="./portpolio_preview.html">미리보기</a>
+        </button>
+
       </div>
     </div>
   </div>
