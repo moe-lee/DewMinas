@@ -1,4 +1,5 @@
 :root {  
+  --background:#FFF;
   /*  사용자 설정용 스타일 가이드         */
   --primary-color: #333;         /* 뒷배경 색상 */
   --text-color: #002060;;         /* 텍스트 색상 */
@@ -135,6 +136,7 @@
   align-self: stretch;
   background: #FEF9FE;
   gap:700px;
+  width: 100%;
 }
 
 .logo{
@@ -143,6 +145,7 @@
   position: sticky;
   z-index: 9999;
 }
+
 .link-page {
   display: inline-flex;
   align-items: flex-start;
@@ -150,6 +153,7 @@
   flex: 0 0 auto;
   flex-direction: row;
   gap:5px;
+  height: 35px;
 }
 .link-text {
   position: relative;

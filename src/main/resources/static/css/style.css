@@ -12,11 +12,13 @@
 .potopolio-input-page {
   background-color: #e8ecef;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: center; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
   width: 100%;
-  padding: 50px;
+  padding: 0px;
 }
+
 .potopolio-input-page .div {
   background-color: #e8ecef;
   display: flex;

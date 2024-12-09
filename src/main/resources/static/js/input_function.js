@@ -193,3 +193,9 @@ saveButton.addEventListener('click', (ev) => {
         location = `/profile?email=${email}`;
     });
 });
+
+
+document.getElementById("profile-link").addEventListener("click", function() {
+    let storedEmail = localStorage.getItem("ownerEmail");
+    window.location.href = `/profile?email=${encodeURIComponent(storedEmail)}`;
+  });
