@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
             licenseInfo.classList.add("content-1");
             licenseInfo.textContent = `${license.name || "정보처리기사"}`;
             contentFrame.appendChild(licenseInfo);
-    
+
             
             // 날짜 정보 생성
             const miniframe = document.createElement("div");

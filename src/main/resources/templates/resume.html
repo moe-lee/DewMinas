@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="/css/potpolio.css">
+    <link rel="stylesheet" href="/css/styleguide.css">
+</head>
+<body>
+    <div class="portfolio">
+        <div class="main-bar">
+            <img class="logo" src="/img/logo.png"></img>
+    
+            <div class="link-page">
+              <a class="link-text" href="javascript:history.back()">수정</a>
+              <div class="vertical-divider"></div>
+              <div class="link-text" id="profile-save" style="cursor: pointer;">저장</div>
+            </div>
+        </div>
+
+        <div class="main-wrapper">
+
+            <!-- 이력서 항목이 삽입되는 메인 컨테이너 -->
+            <div class="main-container" name="portfolio-container">
+                <div class="heading">
+                    <h1 class="head-text">Profile</h1>
+                </div>
+                <div class="intro-container" name="intro">
+                    <img class="intro-img" alt="Png" src="/img/image2.png"/>
+                    <div class="intro-frame">
+                        <p class="name" th:text="|${nameKor}(${nameEng})|"></p>
+                        <p class="role" th:text="|${desiredPosition}|"></p>
+                        <p class="contact-info" th:text="|Phone. ${phoneNumber}|"></p>
+                        <p class="contact-info" th:text="|e-mail. ${email}|"></p>
+                    </div>
+                </div>
+
+                <div class="content-container" name="education" th:if="${#lists.size(educations) > 0}">
+                    <h2 class="content-head">/ Education /</h2>
+                    <div class="content-frame" th:each="education, iterStat : ${educations}">
+                        <p class="content-0">•</p>
+                        <p class="content-1" th:text="|${education.institutionName} / ${education.major} / ${education.degree}|"></p>
+                        <p class="content-2" th:text="|${education.gpa} / ${education.maxGpa}|"></p>
+                        <div class="miniframe">
+                            <p class="content-2" th:text="|${#temporals.format(education.fromDate, 'yyyy.MM.dd')} - ${(education.toNow == true)? '현재' : #temporals.format(education.toDate, 'yyyy.MM.dd')}|">2000.10.15 - 2000.10.15</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-container" name="license" th:if="${#lists.size(licenses) > 0}">
+                    <h2 class="content-head">/ License /</h2>
+                    <div class="content-frame" th:each="license, iterStat : ${licenses}">
+                        <p class="content-0">•</p>
+                        <p class="content-1" th:text="|${license.licenseName}|"></p>
+                        <div class="miniframe">
+                            <p class="content-2" th:text="|${license.organizationName}|"></p>
+                            <p class="content-2" th:text="|${#temporals.format(license.issuedAt, 'yyyy.MM.dd')}|"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-container" name="award" th:if="${#lists.size(awards) > 0}">
+                    <h2 class="content-head">/ Awards /</h2>
+                    <div class="content-frame" th:each="award, iterStat : ${awards}">
+                        <p class="content-0">•</p>
+                        <p class="content-1" th:text="|${award.competitionName}|"></p>
+                        <p class="content-1" th:text="|${award.awardName}"></p>
+                        <div class="miniframe">
+                            <p class="content-2" th:text="|${award.organizationName}|"></p>
+                            <p class="content-2" th:text="|${#temporals.format(award.awardedDate, 'yyyy.MM.dd')}|"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-container" name="educationalExperience" th:if="${#lists.size(educationalExp) > 0}">
+                    <h2 class="content-head">/ Educational Experience /</h2>
+                    <div class="content-frame" th:each="eduExp, iterStat : ${educationalExp}">
+                        <p class="content-0">•</p>
+                        <p class="content-1" th:text="|${eduExp.educationName}|"></p>
+                        <div class="miniframe">
+                            <p class="content-2" th:text="|${eduExp.organizationName}|"></p>
+                            <p class="content-2" th:text="|${#temporals.format(eduExp.fromDate, 'yyyy.MM.dd')} - ${(eduExp.toNow)? '현재' : #temporals.format(eduExp.toDate, 'yyyy.MM.dd')}|"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-container" name="acaAct" th:if="${#lists.size(academicActivities) > 0}">
+                    <h2 class="content-head">/ Academic Activities /</h2>
+                    <div class="content-frame" th:each="acaAct, iterStat : ${academicActivities}">
+                        <p class="content-0">•</p>
+                        <p class="content-1" th:text="|${acaAct.activityName}|"></p>
+                        <div class="miniframe">
+                            <p class="content-2" th:text="|${acaAct.institutionName} ${acaAct.conferenceName}|"></p>
+                            <p class="content-2" th:text="|${#temporals.format(acaAct.activityDate, 'yyyy.MM.dd')}|"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-container" name="workExperience" th:if="${#lists.size(workExp) > 0}">
+                    <h2 class="content-head">/ Work Experience /</h2>
+                    <div class="content-frame" th:each="wExp, iterStat : ${workExp}">
+                        <p class="content-0">•</p>
+                        <div class="timeline" th:if="${iterStat.count < #lists.size(workExp)}"></div>
+                        <p class="content-1" th:text="|${wExp.companyName}|"></p>
+                        <p class="content-1" th:text="|${wExp.jobTitle}|"></p>
+                        <p class="content-1" th:text="|${wExp.responsibility}|"></p>
+                        <div class="miniframe">
+                            <p class="content-4" th:text="|${#temporals.format(wExp.fromDate, 'yyyy.MM.dd')} - ${(wExp.toNow)? '현재' : #temporals.format(wExp.toDate, 'yyyy.MM.dd')}|"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main-container" name="project-container">
+                <div class="heading">
+                    <h1 class="head-text">Projects.</h1>
+                </div>
+                <div class="project-container">
+                    <!-- Project 1 -->
+                    <div class="project-frame">
+                      <img class="project-image" alt="Project image" src= "/img/java.png" />
+                      <div class="project-heading">
+                        <div class="project-title">Crosswalksssssssssssssssssssssssssssssd
+                            dddddddddddddddddddddddd</div>
+                      </div>
+                      <div class="project-skill-frame">
+                        <img class="project-skill" alt="Project skill" src= "/img/java.png"/>
+                        <img class="project-skill" alt="Project skill" src= "/img/java.png"/>
+                        <img class="project-skill" alt="Project skill" src= "/img/java.png"/>
+                      </div>
+                      <p class="project-txt">운전자의 사각지대를 대신 관측해주는 모듈 개발. 보행자 진입 사실을 SSD-Mobilenet-v2를 사용해 인식, Jetson nano를 사용한 독립적인 AI 애플리케이션 디바이스 개발</p>
+                    </div>
+                    <!-- Project 1 -->
+                    <div class="project-frame">
+                        <img class="project-image" alt="Project image" src />
+                        <div class="project-heading">
+                          <div class="project-title">Crosswalk</div>
+                        </div>
+                        <div class="project-skill-frame">
+                          <img class="project-skill" alt="Project skill" src= />
+                        </div>
+                        <p class="project-txt">운전자의 사각지대를 대신 관측해주는 모듈 개발. 보행자 진입 사실을 SSD-Mobilenet-v2를 사용해 인식, Jetson nano를 사용한 독립적인 AI 애플리케이션 디바이스 개발</p>
+                      </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+    <script src="/js/resume.js"></script>
+</html>

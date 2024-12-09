@@ -45,8 +45,8 @@ public class ResumeApiController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping("/api/resume/{email}")
-    public ResponseEntity<Object> deleteResume(@PathVariable(name = "email") String email) {
+    @DeleteMapping("/api/resume")
+    public ResponseEntity<Object> deleteResume(@RequestParam("email") String email) {
         resumeService.deleteResume(email);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

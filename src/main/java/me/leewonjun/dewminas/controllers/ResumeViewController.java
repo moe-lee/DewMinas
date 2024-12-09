@@ -1,14 +1,10 @@
 package me.leewonjun.dewminas.controllers;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import me.leewonjun.dewminas.domains.User;
-import me.leewonjun.dewminas.domains.of_resume.AcademicActivity;
-import me.leewonjun.dewminas.domains.of_resume.License;
 import me.leewonjun.dewminas.domains.of_resume.Resume;
-import me.leewonjun.dewminas.dto.client_dto.ResumeResponse;
 import me.leewonjun.dewminas.dto.client_dto.ResumeSummary;
 import me.leewonjun.dewminas.dto.resume_sub.*;
 import me.leewonjun.dewminas.services.ResumeService;
@@ -17,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -53,6 +48,26 @@ public class ResumeViewController {
     @GetMapping("/resume-update")
     public String updateResume(Model model, @RequestParam("email") String email) {
         Resume resume = resumeService.findResume(email);
+        appendResumeSections(model, resume);
+        return "resume-update";
+    }
+
+    @GetMapping("/resume")
+    public String showResume(@RequestParam("email") String email, Model model) {
+        User user = userService.findUser(email);
+        Resume resume = resumeService.findResume(email);
+        String phoneNumber = user.getPhoneNumber();
+        model.addAttribute("nameKor", user.getNameKor());
+        model.addAttribute("nameEng", user.getNameEng());
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("phoneNumber", phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,7) + "-" + phoneNumber.substring(7));
+
+        appendResumeSections(model, resume);
+        return "resume";
+    }
+    
+    // 이력서 관련 항목을 모델에 주입하는 메소드
+    private void appendResumeSections(Model model, Resume resume) {
         List<EducationSummary> educations = resume.getEducations().stream().map(EducationSummary::new).toList();
         List<AwardSummary> awards = resume.getAwards().stream().map(AwardSummary::new).toList();
         List<AcademicActivitySummary> academicActivities = resume.getAcademicActivities().stream().map(AcademicActivitySummary::new).toList();
@@ -68,6 +83,5 @@ public class ResumeViewController {
         model.addAttribute("educationalExp", educationalExp);
         model.addAttribute("licenses", licenses);
         model.addAttribute("workExp", workExp);
-        return "resume-update";
     }
 }
