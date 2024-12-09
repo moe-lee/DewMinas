@@ -2,6 +2,7 @@ let ownerEmail = document.getElementById("emailBox").value;
 let resumeAddButton = document.getElementById("resumeAddButton");
 let resumeUpdateButton = document.getElementById("resumeUpdateButton");
 localStorage.setItem("ownerEmail", ownerEmail);
+console.log(ownerEmail);
 let callbackToUpdate = (ev)=> {
     ev.stopPropagation();
 
