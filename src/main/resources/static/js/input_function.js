@@ -194,8 +194,22 @@ saveButton.addEventListener('click', (ev) => {
     });
 });
 
-
+previewButton.addEventListener("click", (ev) => {
+    let parsedData = parseResumeData();
+        if(parsedData === "") return;
+        let resumeId = document.getElementById("resumeId").value;
+        fetch(`/api/resume/${resumeId}`, {
+            method : 'PUT',
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : parsedData
+    }).then((ev) => {
+        let email = (new URL(window.location.href)).searchParams.get('email');
+        location = `/resume?email=${email}`;
+    });
+});
 document.getElementById("profile-link").addEventListener("click", function() {
-    let storedEmail = localStorage.getItem("ownerEmail");
-    window.location.href = `/profile?email=${encodeURIComponent(storedEmail)}`;
-  });
+  let storedEmail = localStorage.getItem("ownerEmail");
+  window.location.href = `/profile?email=${encodeURIComponent(storedEmail)}`;
+});

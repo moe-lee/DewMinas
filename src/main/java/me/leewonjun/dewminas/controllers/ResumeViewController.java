@@ -10,6 +10,7 @@ import me.leewonjun.dewminas.dto.resume_sub.*;
 import me.leewonjun.dewminas.services.ResumeService;
 import me.leewonjun.dewminas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,8 @@ public class ResumeViewController {
     private final ResumeService resumeService;
 
     @GetMapping("/profile")
-    public String getProfile(Model model, @RequestParam("email") String email) {
+    public String getProfile(Model model) {
+        String email = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
         User owner = userService.findUser(email);
         ResumeSummary resumeSummary = null;
         try{
