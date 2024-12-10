@@ -7,116 +7,70 @@
     <link rel="stylesheet" href="../static/css/styleguide.css" />
     <link rel="stylesheet" href="../static/css/project_preview.css" />
 </head>
-
-<body>
-    <div class="main-bar"><img class="logo" src="../static/img/logo.png"></img></div>
-    <div class="project-preview">
-        <div class="heading">
-            <div class="head-text">Project.</div>
+    <body>
+        <div class="main-bar">
+            <img class="logo" src="../static/../static/img/logo.png"></img>
+            <div class="link-page">
+            <a class="link-text" href="javascript:history.back()">수정</a>
+            <div class="vertical-divider"></div>
+            <div class="link-text" onclick="location.href='/logout'">로그아웃</div>
         </div>
-        <div class="open-sources">
-            <img class="img" src="img/frame-14.svg" />
-            <div class="div">
-                <div class="summary-frame">
-                    <div class="overlap-group">
-                        <div class="text-wrapper">summary</div>
-                        <div class="div-wrapper">
-                            <div class="text-wrapper-2">/Summary/</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-wrapper-2">
-                    <div class="text-wrapper-3">/Skills/</div>
-                </div>
-                <div class="sources-linraries">
-                    <div class="text-wrapper-3">/Open sources &amp; Libraries/</div>
-                </div>
+        </div>
+        
+        <div class="project-preview">
+            <div class="heading">
+                <div class="head-text"></div>
             </div>
-        </div>
-        <div class="role-frame">
-            <div class="div-wrapper-3">
-                <div class="text-wrapper-4">/Role /</div>
-            </div>
-            <div class="role-title" name="">title</div>
-            <div class="role-comment">comment</div>
-        </div>
-        <div class="trouble-shooting">
-            <div class="div-wrapper-3">
-                <div class="trouble-shooting-2">/Trouble shooting&nbsp;&nbsp;/</div>
-            </div>
-            <div class="text-wrapper-5">Problem</div>
-            <div class="text-wrapper-6">Solution</div>
-            <div class="text-wrapper-7">Result</div>
-            <div class="text-wrapper-8">Lesson</div>
-        </div>
-    </div>
-</body>
-
-</html>
-<!-- <div class="project-preview">
-                <div class="heading">
-                    <div class="head-text">Project.</div>
-                </div>
-                <img class="img" src="img/rectangle-2.svg" />
-                <img class="jpeg" src="img/image6-jpeg.png" />
-                <div class="skills">
-                    <div class="overlap-group-wrapper">
+            <div class="open-sources">
+                <img class="img" src="../static/img/level_2.png" />
+                <div class="div">
+                    <div class="summary-frame">
                         <div class="overlap-group">
-                            <div class="text-wrapper-2">/Skills/</div>
-                            <div class="skills-head"></div>
+                            <div class="div-wrapper">
+                                <div class="text-wrapper-2">/Summary/</div>
+                            </div>
+                            <div class="text-wrapper" name="summary"></div>
                         </div>
                     </div>
-                </div>
-                <div class="role-frame">
-                    <div class="role">
-                        <div class="overlap-group-2">
-                            <div class="text-wrapper-2">/Role /</div>
-                            <div class="div-2"></div>
+                    <div class="skill-frame">
+                        <div class="div-wrapper-2">
+                            <label class="text-wrapper-3">/Skills/</label>                    
+                        </div>
+                        <div class="input-icon" name="skill-icon" >
+                            <img class="skill-icon" src="../static/img/java.png"style="display: none;"></img>
                         </div>
                     </div>
-                    <div class="role-comment">comment</div>
-                    <div class="role-title">title</div>
-                </div>
-                <div class="summary-frame">
-                    <div class="summary">
-                        <div class="overlap-group-2">
-                            <div class="text-wrapper-2">/Summary/</div>
-                            <div class="summary-head"></div>
+                    <div class="source-frame">
+                        <div class="sources-linraries">
+                            <label class="text-wrapper-3">/Open sources/</label>
                         </div>
-                    </div>
-                    <div class="text-wrapper-3">summary</div>
-                </div>
-                <div class="open-sources">
-                    <div class="sources-linraries">
-                        <div class="overlap-group-3">
-                            <div class="open-sources-2">/Open sources &amp; Libraries/</div>
-                            <div class="sources-libraries"></div>
+                        <div class="input-1" name="projectSources"> </div>
+                        <div class="sources-linraries">
+                            <label class="text-wrapper-3">/repositoryLinks/</label>
                         </div>
-                    </div>
-                    <div class="text-wrapper-4">sources, library</div>
-                </div>
-                <div class="trouble-shooting">
-                    <div class="text-wrapper-5">Lesson</div>
-                    <div class="text-wrapper-6">Result</div>
-                    <div class="text-wrapper-7">Solution</div>
-                    <div class="text-wrapper-8">Problem</div>
-                    <div class="trouble-shooting-2">
-                        <div class="overlap-group-4">
-                            <div class="trouble-shooting-3">/Trouble shooting&nbsp;&nbsp;/</div>
-                            <div class="div-2"></div>
-                        </div>
-                        <div class="line"></div>
+                        <div class="input-1" name="repositoryLinks"> </div>
                     </div>
                 </div>
-                <div class="picture">
-                    <div class="rectangle-2"></div>
-                    <div class="rectangle-3"></div>
-                    <div class="rectangle-4"></div>
-                    <div class="ellipse"></div>
-                    <img class="ellipse-2" src="img/ellipse-4.png" />
-                    <div class="ellipse-3"></div>
-                    <div class="ellipse-4"></div>
-                    <div class="ellipse-5"></div>
+            </div>
+            <div class="role-frame">
+                <div class="div-wrapper-3">
+                    <div class="text-wrapper-4">/Role /</div>
                 </div>
-            
-        </div> -->
+                <div class="role-title" name="role-title"></div>
+                <div class="role-comment" name="role-comment"></div>
+            </div>
+            <div class="trouble-shooting">
+                <div class="div-wrapper-3">
+                    <div class="trouble-shooting-2">/Trouble shooting/</div>
+                </div>
+                <div class="trouble" style="display: none;">
+                    <div class="text-wrapper-5" name="trouble-problem">Problem</div>
+                    <div class="text-wrapper-5" name="trouble-solution">Solution</div>
+                    <div class="text-wrapper-5" name="trouble-result">Result</div>
+                    <div class="text-wrapper-5" name="trouble-lesson">Lesson</div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../static/js/project_preview.js"></script>
+</html>
